@@ -12,11 +12,10 @@ import {
 import type { GadgetConfig } from "gadget-server";
 import { Suspense } from "react";
 import { api } from "./api";
-import appStylesHref from "./app.css?url";
+import styles from "./../app.css?url"
 
 export const links = () => [
-  { rel: "stylesheet", href: appStylesHref },
-  { rel: "stylesheet", href: "https://assets.gadget.dev/assets/reset.min.css" },
+  { rel: "stylesheet", href: styles },
 ];
 
 export const meta = () => [
