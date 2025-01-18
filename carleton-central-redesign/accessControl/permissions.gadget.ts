@@ -16,6 +16,38 @@ export const permissions: GadgetPermissions = {
         action: true,
       },
       models: {
+        courses: {
+          read: true,
+          actions: {
+            create: true,
+            delete: true,
+            update: true,
+          },
+        },
+        courseSection: {
+          read: true,
+          actions: {
+            create: true,
+            delete: true,
+            update: true,
+          },
+        },
+        courseToCourseSection: {
+          read: true,
+          actions: {
+            create: true,
+            delete: true,
+            update: true,
+          },
+        },
+        requiredCourses: {
+          read: true,
+          actions: {
+            create: true,
+            delete: true,
+            update: true,
+          },
+        },
         user: {
           read: {
             filter: "accessControl/filters/user/tenant.gelly",
@@ -29,6 +61,12 @@ export const permissions: GadgetPermissions = {
             },
           },
         },
+      },
+      actions: {
+        seedCourses: true,
+        seedCourseSection: true,
+        seedCourseToCourseSection: true,
+        seedRequiredCourses: true,
       },
     },
     unauthenticated: {
