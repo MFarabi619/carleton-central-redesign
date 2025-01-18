@@ -44,17 +44,9 @@ const Header = () => {
         rel="noreferrer"
         style={{ textDecoration: "none" }}
       >
-        <div className="logo">{gadgetConfig.env.GADGET_APP}</div>
       </a>
-      <div className="header-content">
-        <Link to="/sign-in" style={{ color: "black" }}>
-          Sign in
-        </Link>
-        <Link to="/sign-up" style={{ color: "black" }}>
-          Sign up
-        </Link>
-      </div>
-    </div>
+
+          </div>
   );
 };
 
