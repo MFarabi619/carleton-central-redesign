@@ -17,8 +17,8 @@ export default function () {
   const { search } = useLocation();
 
   return (
-    <form className="custom-form" onSubmit={submit}>
-      <h1 className="form-title">Sign in</h1>
+    <form className="text-3xl custom-form" onSubmit={submit}>
+      <h1 className="text-base form-title">Sign in</h1>
       <div className="custom-form">
         <a className="google-oauth-button" href={`/auth/google/start${search}`}>
           <img

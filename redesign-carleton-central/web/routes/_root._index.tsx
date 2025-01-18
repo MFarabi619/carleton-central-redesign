@@ -15,8 +15,8 @@ export default function () {
         <span>You are now signed out of {gadgetConfig.env.GADGET_APP} &nbsp;</span>
       </div>
       <div>
-        <p className="description">
-          Start building your app&apos;s signed out area
+        <p className="text-xl description">
+          building your app&apos;s signed out area
         </p>
         <a
           href="/edit/files/web/routes/_root._index.tsx"
