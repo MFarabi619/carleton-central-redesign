@@ -49,7 +49,6 @@ export const permissions: GadgetPermissions = {
           },
         },
         schedule: {
-          read: true,
           actions: {
             create: true,
             delete: true,
