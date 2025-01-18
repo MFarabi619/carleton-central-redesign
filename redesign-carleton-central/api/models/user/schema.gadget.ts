@@ -54,5 +54,10 @@ export const schema: GadgetModel = {
       default: ["unauthenticated"],
       storageKey: "fs64OOkkm_Y3",
     },
+    schedules: {
+      type: "hasMany",
+      children: { model: "schedule", belongsToField: "student" },
+      storageKey: "5EQk1xA8W-Bs",
+    },
   },
 };
