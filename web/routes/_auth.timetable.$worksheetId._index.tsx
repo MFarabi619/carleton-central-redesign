@@ -3,6 +3,9 @@ import { json, LoaderFunctionArgs } from "@remix-run/node";
 import { Button } from "@/components/ui/button";
 import { GlassmorphicCard } from "@/components/ui/glassmorphic-card";
 import { ArrowLeft } from "lucide-react";
+import { generateValidSchedules } from '../features/timetable/view-timetable/utils/create-schedules'
+import { Calendar } from "../features/timetable/view-timetable/ui/Calendar"
+import { CourseCard } from "../features/timetable/view-timetable/ui/CourseCard"
 
 type LoaderData = {
   worksheet: {
@@ -13,17 +16,27 @@ type LoaderData = {
       edges: Array<{
         node: {
           id: string;
-          course: {
+          courseSection: {
             id: string;
             name: string;
             description: string;
+            courseToCourseSections: {
+              edges: {
+
+       node: {
+                  section: {
+                    name: true,
+                  };
+                };
+              };
+            };
           } | null;
         };
-      }>; 
+      }>;
     };
   } | null;
   error?: string;
-}; 
+};
 
 export async function loader({ params, context }: LoaderFunctionArgs) {
   try {
@@ -40,38 +53,76 @@ export async function loader({ params, context }: LoaderFunctionArgs) {
           edges: {
             node: {
               id: true,
-              course: {
+              courseSection: {
                 id: true,
                 name: true,
-                description: true
+                description: true,
+
+                courseToCourseSections: {
+                  edges: {
+                    node: {
+                      section: {
+                        name: true,
+                        timeSlots: true,
+                        professor: true,
+                      }
+                    }
+                  }
+                }
               }
             }
           }
         }
       }
     });
+    // Transform the data into the desired structure
+    const transformedSchedules = worksheet.schedules.edges.map(({ node }) => {
+      const { id, courseName, name, description, courseToCourseSections } = node.courseSection;
 
-    if (!worksheet) {
-      throw new Error("Worksheet not found");
-    }
+      const sections = courseToCourseSections.edges.map(({ node }) => ({
+        timeSlots: node.section.timeSlots,
+        name: node.section.name,
+        professor: node.section.professor,
+      }));
 
-    return json({ worksheet });
+      return {
+        courseSectionId: id,
+        name,
+        description,
+        sections,
+        courseName,
+      };
+    });
+
+    const formattedCourses = {
+      id: worksheet.id,
+      name: worksheet.name,
+      term: worksheet.term,
+      schedules: transformedSchedules,
+    };
+
+    const validSchedules = generateValidSchedules(formattedCourses.schedules)
+
+    return json({ formattedCourses, validSchedules });
   } catch (error) {
-    return json<LoaderData>({ 
-      worksheet: null, 
-      error: error instanceof Error ? error.message : "An error occurred" 
+    return json<LoaderData>({
+      worksheet: null,
+      error: error instanceof Error ? error.message : "An error occurred"
     });
   }
-}        
-      
-export default function WorksheetPage() {
-  const { worksheet } = useLoaderData<typeof loader>();
+}
 
+export default function WorksheetPage() {
+  const worksheet = useLoaderData<typeof loader>();
+
+  console.log(worksheet.formattedCourses)
   if (!worksheet) {
     return null;
   }
- 
+
   return (
+
+
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
         <Link to="/timetable">
@@ -83,19 +134,21 @@ export default function WorksheetPage() {
       </div>
 
       <GlassmorphicCard className="p-6">
-        <h1 className="text-2xl font-bold mb-2">{worksheet?.name}</h1>
-        <p className="text-gray-600 mb-6">Term: {worksheet.term}</p>
+        {/*NO NEED TO ADD THE DISPLAY AND SELECT FOR THE CURRENT TIME TABLE, JUST HAVE A BUTTON TO GO BACK OR JUST FAKE HAVING IT*/}
+        <p>Term: {worksheet.formattedCourses.term}</p>
+        <p>Name: {worksheet.formattedCourses.name}</p>
 
         <h2 className="text-xl font-semibold mb-4">Courses</h2>
-        {worksheet.schedules.edges.length === 0 ? (
-          <p className="text-gray-600">No courses added yet</p>
-        ) : worksheet.schedules.edges.map(({ node: schedule }) => (
-          <div key={schedule.id} className="p-4 bg-white/50 rounded-lg mb-4">
-            <h3 className="font-medium">{schedule.course?.name ?? "Unnamed Course"}</h3>
-            <p className="text-sm text-gray-600">{schedule.course?.description}</p>
+
+        <div className="flex flex-col">
+        {worksheet.formattedCourses.schedules.map((course) => (
+          <div className="gap-y-4">
+            <CourseCard key={course.id} course={course} />
           </div>
         ))}
+        </div>
       </GlassmorphicCard>
+      <Calendar courses={worksheet.validSchedules[0]} />
     </div>
   );
 }

@@ -8,29 +8,104 @@ export const run: ActionRun = async ({ params, logger, api }) => {
     }
     logger.info(`Deleted ${existingCourses.length} existing courses`);
 
-    // Define new courses
     const courses = [
       // Computer Science courses
-      { name: "COMP1405", description: "Introduction to Computer Science I: Learn fundamental programming concepts, problem-solving techniques, and basic algorithms using Python.", preRequisite: [] },
-      { name: "COMP2406", description: "Web Development: Modern full-stack web development using JavaScript, Node.js, and popular frameworks.", preRequisite: ["COMP1405"] },
-      { name: "COMP3005", description: "Database Management Systems: Design and implementation of database systems, SQL, normalization, and transaction management.", preRequisite: ["COMP2406"] },
-      { name: "COMP3007", description: "Programming Paradigms: Explore different programming paradigms including functional, logic, and object-oriented programming.", preRequisite: ["COMP2406"] },
-      { name: "COMP3008", description: "Human-Computer Interaction: Principles of designing usable, accessible, and effective user interfaces.", preRequisite: ["COMP2406"] },
-      { name: "COMP4107", description: "Neural Networks: Deep learning architectures, training methodologies, and practical applications.", preRequisite: ["COMP3007", "MATH2107"] },
-      
+      {
+        name: "COMP1405",
+        courseName: "Introduction to Python Programming",
+        description: "Learn fundamental programming concepts, problem-solving techniques, and basic algorithms using Python.",
+        preRequisite: []
+      },
+      {
+        name: "COMP2406",
+        courseName: "Full-Stack Web Development with JavaScript",
+        description: "Modern full-stack web development using JavaScript, Node.js, and popular frameworks.",
+        preRequisite: ["COMP1405"]
+      },
+      {
+        name: "COMP3005",
+        courseName: "Designing Robust Database Systems",
+        description: "Design and implementation of database systems, SQL, normalization, and transaction management.",
+        preRequisite: ["COMP2406"]
+      },
+      {
+        name: "COMP3007",
+        courseName: "Exploring Programming Paradigms",
+        description: "Explore different programming paradigms including functional, logic, and object-oriented programming.",
+        preRequisite: ["COMP2406"]
+      },
+      {
+        name: "COMP3008",
+        courseName: "User Interface Design and Usability",
+        description: "Principles of designing usable, accessible, and effective user interfaces.",
+        preRequisite: ["COMP2406"]
+      },
+      {
+        name: "COMP4107",
+        courseName: "Advanced Neural Networks",
+        description: "Deep learning architectures, training methodologies, and practical applications.",
+        preRequisite: ["COMP3007", "MATH2107"]
+      },
+
       // Mathematics courses
-      { name: "MATH1007", description: "Elementary Calculus I: Limits, derivatives, applications of derivatives, and introduction to integration.", preRequisite: [] },
-      { name: "MATH2007", description: "Elementary Calculus II: Techniques of integration, sequences, series, and multivariate calculus.", preRequisite: ["MATH1007"] },
-      { name: "MATH2107", description: "Linear Algebra I: Vector spaces, matrices, linear transformations, and eigenvalues.", preRequisite: ["MATH1007"] },
-      { name: "MATH3107", description: "Linear Algebra II: Advanced concepts in linear algebra, including inner product spaces and canonical forms.", preRequisite: ["MATH2107"] },
-      { name: "MATH3801", description: "Complex Analysis: Complex numbers, analytic functions, contour integration, and residue theory.", preRequisite: ["MATH2007"] },
-      
+      {
+        name: "MATH1007",
+        courseName: "Fundamentals of Calculus I",
+        description: "Limits, derivatives, applications of derivatives, and introduction to integration.",
+        preRequisite: []
+      },
+      {
+        name: "MATH2007",
+        courseName: "Advanced Calculus II",
+        description: "Techniques of integration, sequences, series, and multivariate calculus.",
+        preRequisite: ["MATH1007"]
+      },
+      {
+        name: "MATH2107",
+        courseName: "Introduction to Linear Algebra",
+        description: "Vector spaces, matrices, linear transformations, and eigenvalues.",
+        preRequisite: ["MATH1007"]
+      },
+      {
+        name: "MATH3107",
+        courseName: "Linear Algebra: Advanced Topics",
+        description: "Advanced concepts in linear algebra, including inner product spaces and canonical forms.",
+        preRequisite: ["MATH2107"]
+      },
+      {
+        name: "MATH3801",
+        courseName: "Fundamentals of Complex Analysis",
+        description: "Complex numbers, analytic functions, contour integration, and residue theory.",
+        preRequisite: ["MATH2007"]
+      },
+
       // Engineering courses
-      { name: "ENGR1001", description: "Engineering Graphics: Technical drawing, CAD fundamentals, and visualization techniques.", preRequisite: [] },
-      { name: "ENGR2001", description: "Engineering Mechanics: Statics and dynamics of rigid bodies, force systems, and equilibrium.", preRequisite: ["MATH1007"] },
-      { name: "ENGR3001", description: "Digital Systems Design: Boolean algebra, combinational and sequential circuits, and hardware description languages.", preRequisite: ["ENGR2001"] },
-      { name: "ENGR4001", description: "Control Systems: Analysis and design of feedback control systems, stability, and system response.", preRequisite: ["ENGR3001", "MATH2107"] }
+      {
+        name: "ENGR1001",
+        courseName: "Introduction to Engineering Graphics",
+        description: "Technical drawing, CAD fundamentals, and visualization techniques.",
+        preRequisite: []
+      },
+      {
+        name: "ENGR2001",
+        courseName: "Introduction to Engineering Mechanics",
+        description: "Statics and dynamics of rigid bodies, force systems, and equilibrium.",
+        preRequisite: ["MATH1007"]
+      },
+      {
+        name: "ENGR3001",
+        courseName: "Digital Circuit Design and Analysis",
+        description: "Boolean algebra, combinational and sequential circuits, and hardware description languages.",
+        preRequisite: ["ENGR2001"]
+      },
+      {
+        name: "ENGR4001",
+        courseName: "Control System Design and Analysis",
+        description: "Analysis and design of feedback control systems, stability, and system response.",
+        preRequisite: ["ENGR3001", "MATH2107"]
+      }
     ];
+
 
     // Create new courses
     logger.info("Creating new courses...");

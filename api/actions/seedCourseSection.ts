@@ -51,14 +51,14 @@ export const run: ActionRun = async ({ params, logger, api, connections }) => {
     ];
 
     let crn = 10000;
-    const sectionLetters = ['A', 'B', 'C', 'D'];
+    const sectionLetters = ['A', 'B'];
     const sectionsToCreate = [];
 
     // Generate sections for each course
     for (const course of courses) {
-      const numLectures = Math.floor(Math.random() * 4) + 1;
+      const numLectures = Math.floor(Math.random() * 2) + 1;
       const hasTutorials = Math.random() < 0.5; // num tutorials
-      const numTutorials = Math.floor(Math.random() * 3) + 1; // if it has tutorials how many does it have?
+      const numTutorials = Math.floor(Math.random() * 1) + 1; // if it has tutorials how many does it have?
 
       // Create lecture sections
       for (let i = 0; i < numLectures; i++) {
