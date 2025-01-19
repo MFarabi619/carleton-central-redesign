@@ -29,7 +29,6 @@ export default function Timetable() {
     select: {
       id: true,
       name: true,
-      term: true,
     },
   });
 
@@ -72,6 +71,37 @@ export default function Timetable() {
       setError(err instanceof Error ? err.message : "An error occurred");
     }
   }, [navigate, selectedTerm, selectedWorksheet, schedules, user?.id, create]);
+
+
+  const handleGoToSearch = useCallback( async () => {
+    try {
+      setError(null);
+      if (selectedWorksheet) {
+        if (selectedWorksheet === "New Worksheet") {
+          const existingWorksheets = schedules?.filter(w => w.term === selectedTerm) || [];
+          const worksheetNumber = existingWorksheets.length + 1;
+          const worksheetName = `${selectedTerm} - Worksheet ${worksheetNumber}`;
+
+          const result = await create({
+            name: worksheetName,
+            term: selectedTerm,
+            user: user.id
+          });
+          if (result.data?.id) {
+            navigate(`/timetable/${result.data.id}/search`);
+          }
+        } else {
+          const matchingSchedule = schedules?.find((schedule) => schedule.name === selectedWorksheet);
+          navigate(`/timetable/${matchingSchedule?.id}/search`);
+        }
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "An error occurred");
+    }
+  }, [navigate, selectedTerm, selectedWorksheet, schedules, user?.id, create]);
+
+
+
 
   const getWorksheetOptions = useCallback(() => {
     if (!schedules) return [];
@@ -131,7 +161,7 @@ export default function Timetable() {
         </div>
       </div>
       <div className="flex gap-x-4">
-        <Button>Search Courses</Button>
+        <Button disabled={!selectedTerm || !selectedWorksheet || fetching} onClick={handleGoToSearch}>Search Courses</Button>
         <Button disabled={!selectedTerm || !selectedWorksheet || fetching} onClick={handleCreateTimeTable}>View Timetable</Button>
       </div>
       <div className="flex gap-x-4">

@@ -1,4 +1,4 @@
-import { type Schedule } from "@gadget-client/redesign-carleton-central";
+import { type Schedule } from "@gadget-client/carleton-central-redesign";
 
 export interface WorksheetOption {
   label: string;
@@ -22,24 +22,11 @@ export function generateWorksheetId(): string {
  */
 export function formatWorksheetName(worksheet: string | null): string {
   if (!worksheet) return "Untitled Worksheet";
-  
+
   // Remove technical prefix and get the timestamp portion
   const parts = worksheet.split("_");
   if (parts.length < 2) return "Worksheet";
-  
+
   const number = new Date(parseInt(parts[1])).toLocaleDateString();
   return `Worksheet (${number})`;
-}
-
-/**
- * Gets worksheet options for a select component
- * @param schedules - Array of schedule records
- * @param term - Selected term to filter by
- * @returns Array of worksheet options
- */
-export function getWorksheetOptions(schedules: Schedule[], term: string): WorksheetOption[] {
-  const options = schedules
-    .filter(schedule => schedule.term === term && schedule.worksheet)
-    .map(schedule => ({ label: formatWorksheetName(schedule.worksheet), value: schedule.worksheet ?? "" }));
-  return [{ label: "New Worksheet", value: "new" }, ...options];
 }
