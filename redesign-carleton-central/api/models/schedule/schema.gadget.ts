@@ -10,24 +10,12 @@ export const schema: GadgetModel = {
     course: {
       type: "belongsTo",
       parent: { model: "courses" },
-      storageKey: "Jo6OY0npe_mN",
-    },
-    student: {
-      type: "belongsTo",
-      parent: { model: "user" },
-      storageKey: "mDeu7i_CXb6P",
-    },
-    term: {
-      type: "enum",
-      acceptMultipleSelections: false,
-      acceptUnlistedOptions: false,
-      options: ["Fall 2024", "Winter 2025", "Summer 2025"],
-      storageKey: "TOLdiR_4_eYT",
+      storageKey: "1hJmZZ1EmhyG",
     },
     worksheet: {
-      type: "string",
-      validations: { unique: { caseSensitive: true } },
-      storageKey: "lO23_Qr5Hv9k",
+      type: "belongsTo",
+      parent: { model: "worksheet" },
+      storageKey: "w9vMWQQWkmvM",
     },
   },
 };

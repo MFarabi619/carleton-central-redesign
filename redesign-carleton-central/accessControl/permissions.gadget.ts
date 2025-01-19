@@ -49,6 +49,7 @@ export const permissions: GadgetPermissions = {
           },
         },
         schedule: {
+          read: true,
           actions: {
             create: true,
             delete: true,
@@ -66,6 +67,15 @@ export const permissions: GadgetPermissions = {
             signOut: {
               filter: "accessControl/filters/user/tenant.gelly",
             },
+          },
+        },
+        worksheet: {
+          read: true,
+          actions: {
+            create: true,
+            delete: true,
+            getByNameAndUser: true,
+            update: true,
           },
         },
       },
