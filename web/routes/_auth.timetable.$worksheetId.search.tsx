@@ -8,6 +8,7 @@ import { GlassmorphicCard } from "@/components/ui/glassmorphic-card";
 import { api } from "../api";
 import { json, LoaderFunctionArgs } from "@remix-run/node";
 import { CourseCard } from "../features/timetable/search/ui/CourseCard";
+import { NavBar } from "@/components/ui/nav-bar";
 
 // Enum for course levels
 enum CourseLevel {
@@ -208,6 +209,7 @@ export default function Search() {
 
   return (
     <>
+    <NavBar />
       <div className="grid grid-cols-[300px_1fr] gap-6 p-6">
         {/* Filters Column */}
         <div className="space-y-4">

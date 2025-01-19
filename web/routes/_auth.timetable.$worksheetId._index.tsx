@@ -6,6 +6,7 @@ import { ArrowLeft } from "lucide-react";
 import { generateValidSchedules } from '../features/timetable/view-timetable/utils/create-schedules'
 import { Calendar } from "../features/timetable/view-timetable/ui/Calendar"
 import { CourseCard } from "../features/timetable/view-timetable/ui/CourseCard"
+import { NavBar } from "@/components/ui/nav-bar";
 
 type LoaderData = {
   worksheet: {
@@ -121,8 +122,8 @@ export default function WorksheetPage() {
   }
 
   return (
-
-
+<>
+<NavBar />
     <div className="container mx-auto px-4 py-8">
       <div className="mb-6">
         <Link to="/timetable">
@@ -150,5 +151,6 @@ export default function WorksheetPage() {
       </GlassmorphicCard>
       <Calendar courses={worksheet.validSchedules[0]} />
     </div>
+    </>
   );
 }
