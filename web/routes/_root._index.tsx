@@ -5,6 +5,7 @@ import { api } from "../api";
 import { GlassmorphicCard } from '../components/ui/glassmorphic-card'
 import { Button } from '@/components/ui/button'
 import CarletonBackground from '@/assets/CarletonBackground.webp'
+import { CarletonLogo } from "@/components/ui/carleton-logo";
 
 export default function () {
   const { gadgetConfig } = useOutletContext<RootOutletContext>();
@@ -30,10 +31,7 @@ export default function () {
       </div>
       <main className="relative px-7 py-7 lg:w-1/2 mx-auto h-screen flex flex-col justify-center">
         <GlassmorphicCard className="flex flex-col gap-y-3 px-7 py-7 md:px-10 md:py-10 lg:px-12 lg:py-12">
-          <div className="text-right">
-            <div className="text-3xl">Carleton</div>
-            <div className="text-xl">University</div>
-          </div>
+          <CarletonLogo className="h-24 justify-center"/>
           <div className="text-base">
             Welcome to the Carleton SSO Federated Portal. Sign in with your Google account to continue.
           </div>
