@@ -10,6 +10,8 @@ import { json, LoaderFunctionArgs } from "@remix-run/node";
 import { CourseCard } from "../features/timetable/search/ui/CourseCard";
 import { NavBar } from "@/components/ui/nav-bar";
 
+import { useNavigate } from "@remix-run/react";
+
 // Enum for course levels
 enum CourseLevel {
   LEVEL_1000 = 1000,
@@ -207,6 +209,8 @@ export default function Search() {
     }
   };
 
+  const navigate = useNavigate();
+
   return (
     <>
     <NavBar />
@@ -305,6 +309,17 @@ export default function Search() {
               <Button onClick={applyFilters} variant="outline" className="w-full">
                 Apply Filters
               </Button>
+
+              <Button
+                onClick={() => {
+navigate(`/timetable/${worksheetId}`)
+                }}
+                variant="outline"
+                className="w-full"
+              >
+                View Worksheet
+              </Button>
+
             </div>
           </GlassmorphicCard>
         </div>

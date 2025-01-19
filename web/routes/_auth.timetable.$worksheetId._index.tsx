@@ -136,9 +136,12 @@ export default function WorksheetPage() {
 
       <GlassmorphicCard className="p-6">
         {/*NO NEED TO ADD THE DISPLAY AND SELECT FOR THE CURRENT TIME TABLE, JUST HAVE A BUTTON TO GO BACK OR JUST FAKE HAVING IT*/}
+       <div className="mb-2 flex flex-wrap gap-3">
+
         <p>Term: {worksheet.formattedCourses.term}</p>
         <p>Name: {worksheet.formattedCourses.name}</p>
 
+       </div>
         <h2 className="text-xl font-semibold mb-4">Courses</h2>
 
         <div className="flex flex-col">
@@ -149,7 +152,9 @@ export default function WorksheetPage() {
         ))}
         </div>
       </GlassmorphicCard>
+     <div className="mt-4">
       <Calendar courses={worksheet.validSchedules[0]} />
+    </div>
     </div>
     </>
   );

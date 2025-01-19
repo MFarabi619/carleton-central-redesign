@@ -12,7 +12,9 @@ import {
 import { User } from "lucide-react"
 import { Switch } from "@/components/ui/switch"
 import { Label } from "@/components/ui/label"
-
+import { api } from "../../api";
+import {Button} from "@/components/ui/button"
+import {useSignOut} from "@gadgetinc/react"
 
 interface UserDropDownProps {
   name: string
@@ -43,6 +45,7 @@ export function UserDropDown({
   variant = 'default',
   className,
 }: UserDropDownProps) {
+const signOut = useSignOut()
   return (
     <div className={cn(userDropDownVariants({ variant, className }))}>
       <DropdownMenu>
@@ -63,7 +66,9 @@ export function UserDropDown({
             </div>
           </DropdownMenuItem>
           <DropdownMenuItem>Profile</DropdownMenuItem>
+          <Button onClick={()=>{signOut()}} >
           <DropdownMenuItem>Logout</DropdownMenuItem>
+          </Button>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
