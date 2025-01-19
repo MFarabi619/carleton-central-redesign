@@ -1,5 +1,5 @@
 import { Link, useOutletContext } from "@remix-run/react";
-import type { AuthOutletContext } from "./_auth";
+import type { AuthOutletContext } from "./_auth._index";
 import { useSignOut } from "@gadgetinc/react";
 
 export default function () {

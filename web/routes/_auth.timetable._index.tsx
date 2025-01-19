@@ -5,6 +5,8 @@ import { useNavigate } from "@remix-run/react";
 import { Button } from '@/components/ui/button';
 import { api } from "../api";
 import redLine from '@/assets/red-line.svg?url';
+import { Header } from "@/components/ui/header";
+import { NavBar } from "@/components/ui/nav-bar";
 
 const TERM_OPTIONS = ["Fall 2024", "Winter 2025", "Summer 2025"];
 
@@ -113,63 +115,74 @@ export default function Timetable() {
   }, [schedules]);
 
   return (
-    <div className="container mx-auto max-w-4xl p-6 flex flex-col gap-y-3">
-      <div className="flex gap-3 overflow-hidden">
-        <p className="text-nowrap">Term & Timetable</p>
-        {error && (
-          <p className="text-red-500">{error}</p>
-        )}
-        <img src={redLine} className="w-auto" />
-      </div>
-      <div className="grid grid-cols-2 gap-8">
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700">Term</label>
-          <Select onValueChange={handleTermChange} value={selectedTerm ?? undefined}>
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder="Select a term" />
-            </SelectTrigger>
-            <SelectContent>
-              {TERM_OPTIONS.map((term) => (
-                <SelectItem key={term} value={term}>
-                  {term}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+    <>
+      <NavBar />
+
+      <div className="container mx-auto max-w-4xl p-5 flex flex-col gap-y-3">
+        <Header text="Term & Timetable" />
+        <div className="flex gap-3 overflow-hidden">
+          {error && (
+            <p className="text-red-500">{error}</p>
+          )}
         </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-700">Worksheet</label>
-          <Select
-            onValueChange={handleWorksheetChange}
-            value={selectedWorksheet ?? undefined}
-            disabled={!selectedTerm || fetching || isCreating}
-          >
-            <SelectTrigger className="w-full">
-              <SelectValue placeholder={fetching ? "Loading..." : "Select a worksheet"}>
-                {selectedWorksheet || "Select a worksheet"}
-              </SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              {getWorksheetOptions().map((worksheet) => (
-                <SelectItem key={worksheet} value={worksheet}>
-                  {worksheet}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="flex flex-col gap-10">
+        <div className="grid grid-cols-2 gap-8">
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">Term</label>
+            <Select onValueChange={handleTermChange} value={selectedTerm ?? undefined}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a term" />
+              </SelectTrigger>
+              <SelectContent>
+                {TERM_OPTIONS.map((term) => (
+                  <SelectItem key={term} value={term}>
+                    {term}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-sm font-medium text-gray-700">Worksheet</label>
+            <Select
+              onValueChange={handleWorksheetChange}
+              value={selectedWorksheet ?? undefined}
+              disabled={!selectedTerm || fetching || isCreating}
+            >
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder={fetching ? "Loading..." : "Select a worksheet"}>
+                  {selectedWorksheet || "Select a worksheet"}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                {getWorksheetOptions().map((worksheet) => (
+                  <SelectItem key={worksheet} value={worksheet}>
+                    {worksheet}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        <div>
+          To resume using a saved Timetable or continue to your registration, select your Timetable below.
+          To start a new Timetable select 'NEW Timetable'.
+        </div>
+        <div className="flex flex-wrap gap-x-4">
+        <Button className="flex-1" disabled={!selectedTerm || !selectedWorksheet || fetching} onClick={handleGoToSearch}>Search Courses</Button>
+        <Button className="flex-1" disabled={!selectedTerm || !selectedWorksheet || fetching} onClick={handleCreateTimeTable}>View Timetable</Button>
+
+        </div>
+        <div className=" flex flex-wrap gap-x-4">
+          <Button className="flex-1" variant={"outline"}>How to Video</Button>
+          <Button className="flex-1" variant={"outline"}>User Guide</Button>
+          <Button className="flex-1" variant={"outline"}>Graduate Calendar</Button>
+          <Button className="flex-1" variant={"outline"}>Undergraduate Calendar</Button>
+        </div>
         </div>
       </div>
-      <div className="flex gap-x-4">
-        <Button disabled={!selectedTerm || !selectedWorksheet || fetching} onClick={handleGoToSearch}>Search Courses</Button>
-        <Button disabled={!selectedTerm || !selectedWorksheet || fetching} onClick={handleCreateTimeTable}>View Timetable</Button>
-      </div>
-      <div className="flex gap-x-4">
-        <Button>How to Video</Button>
-        <Button>User Guide</Button>
-        <Button>Graduate Calendar</Button>
-        <Button>Undergraduate Calendar</Button>
-      </div>
-    </div>
+    </>
   );
 }

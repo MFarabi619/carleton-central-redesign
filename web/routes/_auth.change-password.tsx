@@ -1,6 +1,6 @@
 import { useActionForm } from "@gadgetinc/react";
 import { Link, useOutletContext } from "@remix-run/react";
-import type { AuthOutletContext } from "./_auth";
+import type { AuthOutletContext } from "./_auth._index";
 import { api } from "../api";
 
 export default function () {
