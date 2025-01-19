@@ -34,17 +34,16 @@ export function NavBar({
 
   return (
     <div className={cn(navBarVariants({ variant, className }))}>
-      <div className='h-full flex items-center'>
+      <a href={'/'} className='h-full flex items-center'>
       <CarletonLogo variant='shield' className='h-full' />
       <div className='text-primary-foreground' > Carleton Central</div>
-    </div>
+    </a>
 
     <div className='h-full flex items-center gap-2 sm:gap-4'>
     
     <a href={'/'} className="clickable">
     <LayoutGrid size='24' className='text-primary-foreground' />
 </a>
-
 
     
     <UserDropDown name='Mumtahin Farabi' studentNumber='101233445' />
